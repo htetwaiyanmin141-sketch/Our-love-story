@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Love Journey ❤️</title>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    
+    <style>
+        body { 
+            background-color: #fff0f3; 
+            font-family: 'Poppins', sans-serif;
+            display: flex; justify-content: center; align-items: center; 
+            height: 100vh; margin: 0; color: #ff4d6d; overflow: hidden;
+        }
+        .container { 
+            text-align: center; background: white; padding: 2.5rem 1.5rem; 
+            border-radius: 40px; box-shadow: 0 25px 60px rgba(255, 77, 109, 0.2); 
+            border: 2px solid #ffccd5; position: relative; width: 320px;
+        }
+
+        .couple-header {
+            display: flex; justify-content: center; align-items: center;
+            gap: 10px; margin-bottom: 20px;
+        }
+        
+        .avatar-frame {
+            width: 90px; /* ပုံအရွယ်အစားကို ဒီမှာ ထိန်းထားပါတယ် */
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid #ffccd5;
+            object-fit: cover; /* ပုံမပြဲသွားအောင် ထိန်းပေးတယ် */
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.2);
+        }
+
+        .boy-photo { animation: float-boy 3s ease-in-out infinite; }
+        .girl-photo { transform: scaleX(-1); animation: float-girl 3s ease-in-out infinite; }
+
+        .heart-center { font-size: 1.8rem; color: #ff4d6d; animation: heartbeat 1.5s infinite; }
+
+        @keyframes float-boy { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes float-girl { 0%, 100% { transform: translateY(0) scaleX(-1); } 50% { transform: translateY(-10px) scaleX(-1); } }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+
+        h1 { 
+            font-family: 'Love Light', cursive; font-size: 3rem; 
+            margin: 10px 0; color: #c9184a; line-height: 1;
+        }
+
+        #timer { display: flex; gap: 8px; justify-content: center; margin-top: 20px; }
+        
+        .time-box { 
+            background: #fff; border: 2px solid #ffccd5;
+            padding: 8px 4px; border-radius: 15px; min-width: 65px; 
+        }
+
+        .number-wrapper { height: 35px; overflow: hidden; }
+        .time-box span { 
+            font-family: 'Bebas Neue', cursive; font-size: 2rem; 
+            color: #ff4d6d; display: block; line-height: 35px;
+        }
+
+        .animate-pop { animation: slideUp 0.4s ease-out; }
+        @keyframes slideUp { 0% { transform: translateY(15px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+
+        .label { font-size: 0.55rem; text-transform: uppercase; letter-spacing: 1px; color: #ff8fa3; font-weight: 700; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="couple-header">
+        <!-- Boy Image -->
+        <img src="https://i.ibb.co/3Y4kn43t/photo-2026-02-23-19-22-39.jpg" alt="Boy" class="avatar-frame boy-photo">
+
+        <div class="heart-center">❤️</div>
+
+        <!-- Girl Image -->
+        <img src="https://i.ibb.co/21HyCbQL/photo-2026-02-24-22-11-22.jpg" alt="Girl" class="avatar-frame girl-photo">
+    </div>
+    
+    <h1 id="title">Our Love Story</h1>
+    
+    <div id="timer">
+        <div class="time-box">
+            <div class="number-wrapper"><span id="days">00</span></div>
+            <div class="label">Days</div>
+        </div>
+        <div class="time-box">
+            <div class="number-wrapper"><span id="hours">00</span></div>
+            <div class="label">Hours</div>
+        </div>
+        <div class="time-box">
+            <div class="number-wrapper"><span id="minutes">00</span></div>
+            <div class="label">Mins</div>
+        </div>
+        <div class="time-box">
+            <div class="number-wrapper"><span id="seconds">00</span></div>
+            <div class="label">Secs</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const startDate = new Date("November 21, 2025 00:00:00").getTime();
+    function updateCounter() {
+        const now = new Date().getTime();
+        const diff = now - startDate;
+        const absDiff = Math.abs(diff);
+        document.getElementById("title").innerText = diff < 0 ? "Countdown to Us" : "Our Love Story";
+        const time = {
+            days: Math.floor(absDiff / (1000 * 60 * 60 * 24)),
+            hours: Math.floor((absDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+            minutes: Math.floor((absDiff % (1000 * 60 * 60)) / (1000 * 60)),
+            seconds: Math.floor((absDiff % (1000 * 60)) / 1000)
+        };
+        for (const unit in time) {
+            const el = document.getElementById(unit);
+            const val = time[unit].toString().padStart(2, '0');
+            if (el.innerText !== val) {
+                el.innerText = val;
+                el.classList.remove('animate-pop');
+                void el.offsetWidth; 
+                el.classList.add('animate-pop');
+            }
+        }
+    }
+    setInterval(updateCounter, 1000);
+    updateCounter();
+</script>
+
+</body>
+</html>
